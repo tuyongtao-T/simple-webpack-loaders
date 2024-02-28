@@ -1,0 +1,26 @@
+{
+  "name": "simple-webpack-loaders",
+  "version": "1.0.0",
+  "description": "开发一些有趣的简便的webpack loaders",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "engines": {
+    "node": ">=14",
+    "pnpm": ">=7"
+  },
+  "volta": {
+    "node": "14.21.3"
+  },
+  "devDependencies": {
+    "babel-jest": "^29.7.0",
+    "jest": "^29.7.0",
+    "loader-utils": "^3.2.1",
+    "memfs": "^4.7.7",
+    "webpack": "^5.90.3"
+  }
+}
