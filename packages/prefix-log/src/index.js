@@ -1,8 +1,15 @@
+/*
+ * @Author: tuyongtao1
+ * @Date: 2024-02-28 10:39:37
+ * @LastEditors: tuyongtao1
+ * @LastEditTime: 2024-02-29 09:38:41
+ * @Description: 
+ */
 const { parse } = require("@babel/parser");
 const traverse = require("@babel/traverse").default;
-const types = require("@babel/types");
+const generate = require("@babel/generator").default;
+const type = require("@babel/types");
 const core = require("@babel/core");
-const loaderUtils = require("loader-utils");
 
 // 提供默认的loader option
 const DEFAULT_OPTIONS = {
@@ -39,38 +46,34 @@ function tryCatchLoader(source) {
 
     // 2. 遍历AST， 对 AST进行更改
     traverse(ast, {
-        // 3. 在语法树中锁定 await 表达式类型
-        AwaitExpression: function (path) {
-            // 4. 通过 while 递归向上查找 async function 的节点，修改AST
-            while (path && path.node) {
-                let parentPath = path.parentPath;
-                // 4.1 确认 await的顶层 async 函数节点
-                let isAwaitParentNode =
-                    types.isBlockStatement(path.node) && isAsyncFuncNode(parentPath.node);
-                // 4.2 是否已经有 try-catch
-                let hasTryCatch =
-                    types.isBlockStatement(path.node) &&
-                    types.isTryStatement(parentPath.node);
-
-                if (isAwaitParentNode) {
-                    // 4.3 构建新的AST
-                    let tryCatchAst = types.tryStatement(
-                        path.node,
-                        types.catchClause(
-                            types.identifier(options.identifier),
-                            types.blockStatement(catchNode)
-                        ),
-                        finallyNode && types.blockStatement(finallyNode)
-                    );
-                    path.replaceWithMultiple([tryCatchAst]);
-                    break;
-                } else if (hasTryCatch) {
-                    break;
-                }
-                // 循环的变量
-                path = parentPath;
+        CallExpression(path) {
+            // 检查调用表达式的 callee 是否是 console.log
+            if (
+                isConsoleLogNode(path.node)
+            ) {
+                // const argument = path.node.arguments[0];
+                const code = generate(path.node).code
+                // if (type.isLiteral(argument)) {
+                //   // 参数是字面量
+                //   const newArgument = type.stringLiteral(`'普通字面量': `);
+                //   addPreTip(newArgument, path.node.arguments)
+                // } else if (type.isIdentifier(argument)) {
+                //   // 参数是一个原始变量
+                //   const newArgument = type.stringLiteral(`${path.node.arguments[0].name}: `);
+                //   addPreTip(newArgument, path.node.arguments)
+                // } else {
+                //   // 参数可能是其他类型的表达式，例如函数调用、数组、对象等
+                //   const code = calleeCode.code
+                //   const arg = code.slice(12, -1)
+                //   const newArgument = type.stringLiteral(`${arg}: `);
+                //   addPreTip(newArgument, path.node.arguments)
+                // }
+                const arg = code.slice(12, -1)
+                const newArgument = type.stringLiteral(`${arg}:\n`);
+                addPreTip(newArgument, path.node.arguments)
             }
         },
+
     });
 
     // 5. 给定新的 AST , 并转换
@@ -79,28 +82,16 @@ function tryCatchLoader(source) {
     }).code;
 }
 
-/**
- * @param AST Node
- */
-function isAsyncFuncNode(node) {
-    const res =
-        types.isFunctionDeclaration(node, {
-            // 函数声明
-            async: true,
-        }) ||
-        types.isArrowFunctionExpression(node, {
-            //箭头函数
-            async: true,
-        }) ||
-        types.isFunctionExpression(node, {
-            // 函数表达式
-            async: true,
-        }) ||
-        types.isObjectMethod(node, {
-            // 对象的方法
-            async: true,
-        });
-    return res;
+
+function isConsoleLogNode(node) {
+    const res = type.isMemberExpression(node.callee) &&
+        type.isIdentifier(node.callee.object, { name: "console" }) &&
+        type.isIdentifier(node.callee.property, { name: "log" })
+    return res
+}
+
+function addPreTip(tipLiteral, argument) {
+    argument.unshift(tipLiteral)
 }
 
 module.exports = tryCatchLoader;

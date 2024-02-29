@@ -1,7 +1,7 @@
 {
-  "name": "auto-try-catch",
+  "name": "@loader/auto-try-catch",
   "version": "1.0.0",
-  "description": "",
+  "description": "一个webpack loader，为异步操作自动添加try-catch语句",
   "main": "index.js",
   "scripts": {
     "test": "jest"
