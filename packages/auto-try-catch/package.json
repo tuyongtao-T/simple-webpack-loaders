@@ -1,5 +1,5 @@
 {
-  "name": "@loader/auto-try-catch",
+  "name": "no-catch-loader",
   "version": "1.0.0",
   "description": "一个webpack loader，为异步操作自动添加try-catch语句",
   "main": "index.js",
