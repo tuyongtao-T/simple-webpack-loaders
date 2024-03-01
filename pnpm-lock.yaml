@@ -25,7 +25,14 @@ importers:
       '@babel/preset-env': 7.23.9_@babel+core@7.24.0
 
   packages/prefix-log:
-    specifiers: {}
+    specifiers:
+      '@babel/cli': ^7.23.9
+      '@babel/core': ^7.24.0
+      '@babel/preset-env': ^7.23.9
+    devDependencies:
+      '@babel/cli': 7.23.9_@babel+core@7.24.0
+      '@babel/core': 7.24.0
+      '@babel/preset-env': 7.23.9_@babel+core@7.24.0
 
 packages:
 
@@ -89,8 +96,6 @@ packages:
       gensync: 1.0.0-beta.2
       json5: 2.2.3
       semver: 6.3.1
-    transitivePeerDependencies:
-      - supports-color
     dev: true
 
   /@babel/generator/7.23.6:
@@ -1314,7 +1319,6 @@ packages:
       strip-ansi: 6.0.1
     transitivePeerDependencies:
       - babel-plugin-macros
-      - supports-color
       - ts-node
     dev: true
 
@@ -2103,7 +2107,6 @@ packages:
     transitivePeerDependencies:
       - '@types/node'
       - babel-plugin-macros
-      - supports-color
       - ts-node
     dev: true
 
@@ -2119,11 +2122,6 @@ packages:
   /debug/4.3.4:
     resolution: {integrity: sha1-Exn2V5NX8jONMzfSzdSRS7XcyGU=, tarball: debug/download/debug-4.3.4.tgz}
     engines: {node: '>=6.0'}
-    peerDependencies:
-      supports-color: '*'
-    peerDependenciesMeta:
-      supports-color:
-        optional: true
     dependencies:
       ms: 2.1.2
     dev: true
@@ -2565,7 +2563,6 @@ packages:
       stack-utils: 2.0.6
     transitivePeerDependencies:
       - babel-plugin-macros
-      - supports-color
     dev: true
 
   /jest-cli/29.7.0:
@@ -2592,7 +2589,6 @@ packages:
     transitivePeerDependencies:
       - '@types/node'
       - babel-plugin-macros
-      - supports-color
       - ts-node
     dev: true
 
@@ -2632,7 +2628,6 @@ packages:
       strip-json-comments: 3.1.1
     transitivePeerDependencies:
       - babel-plugin-macros
-      - supports-color
     dev: true
 
   /jest-config/29.7.0_@types+node@20.11.21:
@@ -2672,7 +2667,6 @@ packages:
       strip-json-comments: 3.1.1
     transitivePeerDependencies:
       - babel-plugin-macros
-      - supports-color
     dev: true
 
   /jest-diff/29.7.0:
@@ -2900,8 +2894,6 @@ packages:
       natural-compare: 1.4.0
       pretty-format: 29.7.0
       semver: 7.6.0
-    transitivePeerDependencies:
-      - supports-color
     dev: true
 
   /jest-util/29.7.0:
@@ -2978,7 +2970,6 @@ packages:
     transitivePeerDependencies:
       - '@types/node'
       - babel-plugin-macros
-      - supports-color
       - ts-node
     dev: true
 

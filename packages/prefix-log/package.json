@@ -1,12 +1,33 @@
 {
-  "name": "prefix-log",
+  "name": "prefix-log-loader",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "一个webpack loader,为console.log添加前缀和自定义样式",
+  "main": "src/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC"
+  "keywords": [
+    "webpack",
+    "loader",
+    "console",
+    "log",
+    "vue",
+    "javascript"
+  ],
+  "author": "tuyongtao",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tuyongtao-T/simple-webpack-loaders/tree/main/packages/prefix-log"
+  },
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/cli": "^7.23.9",
+    "@babel/core": "^7.24.0",
+    "@babel/preset-env": "^7.23.9"
+  },
+  "peerDependencies": {
+    "@babel/cli": "^7.23.9",
+    "@babel/core": "^7.24.0",
+    "@babel/preset-env": "^7.23.9"
+  }
 }
