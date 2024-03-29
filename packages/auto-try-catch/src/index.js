@@ -2,6 +2,7 @@ const { parse } = require("@babel/parser");
 const traverse = require("@babel/traverse").default;
 const types = require("@babel/types");
 const core = require("@babel/core");
+const loaderUtils = require("loader-utils");
 
 // 提供默认的loader option
 const DEFAULT_OPTIONS = {
@@ -14,7 +15,7 @@ const DEFAULT_OPTIONS = {
  * source: js源文件
  */
 function tryCatchLoader(source) {
-    let options = this.getOptions();
+    let options = loaderUtils.getOptions(this) || {};
     options = {
         ...DEFAULT_OPTIONS,
         ...options,
