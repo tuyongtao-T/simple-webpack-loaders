@@ -2,7 +2,7 @@
  * @Author: tuyongtao1
  * @Date: 2024-02-28 10:39:37
  * @LastEditors: tuyongtao1
- * @LastEditTime: 2024-03-01 14:21:10
+ * @LastEditTime: 2024-03-29 14:52:07
  * @Description: 
  */
 const { parse } = require("@babel/parser");
@@ -10,6 +10,7 @@ const traverse = require("@babel/traverse").default;
 const generate = require("@babel/generator").default;
 const type = require("@babel/types");
 const core = require("@babel/core");
+const loaderUtils = require("loader-utils");
 
 // 提供默认的loader option
 const DEFAULT_OPTIONS = {
@@ -21,7 +22,7 @@ const DEFAULT_OPTIONS = {
  * source: js源文件
  */
 function prefixLogLoader(source) {
-    let options = this.getOptions();
+    let options = loaderUtils.getOptions(this) || {};
     options = {
         ...DEFAULT_OPTIONS,
         ...options,
