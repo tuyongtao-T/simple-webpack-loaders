@@ -13,21 +13,27 @@ $ npm i no-catch-loader
 vue.config.js
 
 ```
+const path = require('path')
 module.exports = defineConfig({
   configureWebpack: {
     module: {
       rules: [
         {
           test: /\.js$/,
-          use: {
-            loader: 'no-catch-loader',
-            // 没有特殊要求可不配置
-            options: {
-              catchCode: (identifier) => `console.log(${identifier})`,
-              identifier: "e",
-              finallyCode: null,
+          exclude: /node_modules/, // 刨除哪个文件里的js文件
+          include: path.resolve(__dirname, './src'),
+          use: [
+            { loader: 'babel-loader' },
+            {
+              loader: 'no-catch-loader',
+              // 没有特殊要求可不配置
+              options: {
+                catchCode: (identifier) => `console.log(${identifier})`,
+                identifier: 'error',
+                finallyCode: 'console.log("finally")',
+              },
             },
-          },
+          ],
         },
       ],
     },
