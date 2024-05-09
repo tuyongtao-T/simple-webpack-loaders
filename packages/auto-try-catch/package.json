@@ -1,6 +1,6 @@
 {
   "name": "no-catch-loader",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "一个webpack loader，为异步操作自动添加try-catch语句",
   "main": "src/index.js",
   "scripts": {
@@ -10,7 +10,8 @@
     "testEnvironment": "node"
   },
   "files": [
-    "src"
+    "src",
+    "README.md"
   ],
   "keywords": [
     "webpack",
