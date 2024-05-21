@@ -15,7 +15,14 @@ const DEFAULT_OPTIONS = {
  * source: js源文件
  */
 function tryCatchLoader(source) {
-    let options = loaderUtils?.getOptions(this) || this.getOptions() || {};
+    let options
+    if(typeof this.getOptions === "function") {
+        options = this.getOptions()
+    }else if(typeof loaderUtils.getOptions === "function") {
+        options = loaderUtils.getOptions(this)
+    }else {
+        options = {}
+    }
     options = {
         ...DEFAULT_OPTIONS,
         ...options,

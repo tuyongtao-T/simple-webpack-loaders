@@ -30,7 +30,7 @@
     "@babel/cli": "^7.23.9",
     "@babel/core": "^7.24.0",
     "@babel/preset-env": "^7.23.9",
-    "loader-utils": "^3.2.1"
+    "loader-utils": "^2.0.4"
   },
   "peerDependencies": {
     "@babel/cli": "^7.23.9",

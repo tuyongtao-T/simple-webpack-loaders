@@ -2,7 +2,7 @@
  * @Author: tuyongtao1
  * @Date: 2024-02-28 10:39:37
  * @LastEditors: tuyongtao1
- * @LastEditTime: 2024-03-29 14:52:07
+ * @LastEditTime: 2024-05-21 09:53:25
  * @Description: 
  */
 const { parse } = require("@babel/parser");
@@ -22,7 +22,14 @@ const DEFAULT_OPTIONS = {
  * source: js源文件
  */
 function prefixLogLoader(source) {
-    let options = loaderUtils?.getOptions(this) || this.getOptions() || {};
+    let options
+    if(typeof this.getOptions === "function") {
+        options = this.getOptions()
+    }else if(typeof loaderUtils.getOptions === "function") {
+        options = loaderUtils.getOptions(this)
+    }else {
+        options = {}
+    }
     options = {
         ...DEFAULT_OPTIONS,
         ...options,
