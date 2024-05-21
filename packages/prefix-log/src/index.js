@@ -22,7 +22,7 @@ const DEFAULT_OPTIONS = {
  * source: js源文件
  */
 function prefixLogLoader(source) {
-    let options = loaderUtils.getOptions(this) || {};
+    let options = loaderUtils?.getOptions(this) || this.getOptions() || {};
     options = {
         ...DEFAULT_OPTIONS,
         ...options,
