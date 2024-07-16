@@ -70,7 +70,8 @@ console.log("hello world")
 console.log(10086)
 ```
 
-![控制台展示](./imgs/20240715213959708.png)
+![控制台展示](https://raw.githubusercontent.com/tuyongtao-T/simple-webpack-loaders/main/packages/prefix-log/imgs/20240715213959708.png)
+
 
 **demo2.js**
 
@@ -93,7 +94,8 @@ console.log(person.others)
 console.log(person.others.grade)
 ```
 
-![控制台展示](./imgs/20240715214207190.png)
+![控制台展示](https://raw.githubusercontent.com/tuyongtao-T/simple-webpack-loaders/main/packages/prefix-log/imgs/20240715214207190.png)
+
 
 ### 全局config2
 **vue.config2.js**
@@ -129,7 +131,8 @@ console.log("hello world")
 console.log(10086)
 ```
 
-![控制台展示](./imgs/20240716095000295.png)
+![控制台展示](https://raw.githubusercontent.com/tuyongtao-T/simple-webpack-loaders/main/packages/prefix-log/imgs/20240716095000295.png)
+
 
 **demo2.js**
 
@@ -151,7 +154,8 @@ console.log(person.name)
 console.log(person.others)
 console.log(person.others.grade)
 ```
-![控制台展示](./imgs/20240716095100008.png)
+![控制台展示](https://raw.githubusercontent.com/tuyongtao-T/simple-webpack-loaders/main/packages/prefix-log/imgs/20240716095100008.png)
+
 
 ### 局部config
 **vue.config2.js**
@@ -185,7 +189,8 @@ console.log(undefined,'success')
 console.log(true,'warning')
 console.log("hello world",'danger')
 ```
-![控制台展示](./imgs/20240716095540340.png)
+![控制台展示](https://raw.githubusercontent.com/tuyongtao-T/simple-webpack-loaders/main/packages/prefix-log/imgs/20240716095540340.png)
+
 
 
 
