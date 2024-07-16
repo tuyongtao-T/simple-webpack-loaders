@@ -1,10 +1,3 @@
-/*
- * @Author: tuyongtao1
- * @Date: 2024-02-28 10:39:37
- * @LastEditors: tuyongtao1
- * @LastEditTime: 2024-05-21 09:53:25
- * @Description: 
- */
 const { parse } = require("@babel/parser");
 const traverse = require("@babel/traverse").default;
 const generate = require("@babel/generator").default;
@@ -12,15 +5,12 @@ const type = require("@babel/types");
 const core = require("@babel/core");
 const loaderUtils = require("loader-utils");
 
-// 提供默认的loader option
-const DEFAULT_OPTIONS = {
-    style: 'color: blue; font-size: 20px; background-color: yellow; padding: 1px;',
-    isChangeLine: false
-};
-
-/**
- * source: js源文件
- */
+const themeStyle = {
+    success: `background-color: #f0f9eb;border: 1px solid #c2e7b0;padding: 0px 5px;color: #67c23a;font-size: 14px;`,
+    info: `background-color: #f4f4f5;border: 1px solid #d3d4d6;padding: 0px 5px;color: #909399;font-size: 14px;`,
+    warning: `background-color: #fdf6ec;border: 1px solid #f5dab1;padding: 0px 5px;color: #e6a23c;font-size: 14px;`,
+    danger: `background-color: #fef0f0;border: 1px solid #fbc4c4;padding: 0px 5px;color: #f56c6c;font-size: 14px;`
+}
 function prefixLogLoader(source) {
     let options
     if(typeof this.getOptions === "function") {
@@ -30,29 +20,41 @@ function prefixLogLoader(source) {
     }else {
         options = {}
     }
-    options = {
-        ...DEFAULT_OPTIONS,
-        ...options,
-    };
-
-    // 1. 生成AST
+    const config = {
+        type: themeStyle[options.type] || themeStyle.info,
+        textWrap: options.textWrap || false,
+        customStyle: options.customStyle || null,
+    }
     let ast = parse(source, {
-        sourceType: "module", // 支持 es6 module
-        plugins: ["dynamicImport"], // 支持动态 import
+        sourceType: "module",
+        plugins: ["dynamicImport"],
     });
-
-    // 2. 遍历AST， 对 AST进行更改
     traverse(ast, {
         CallExpression(path) {
-            // 检查调用表达式的 callee 是否是 console.log
             if (
                 isConsoleLogNode(path.node)
             ) {
                 const code = generate(path.node).code
-                const arg = code.slice(12, -1)
-                const styleArgument = type.stringLiteral(`${options.style}`)
+                
+                 let arg = null
+                 let styleArgument = null
+                 // 获取类型
+                 let customType = null
+                 
+                 if(path.node.arguments.length > 1 && path.node.arguments.at(-1).type === 'StringLiteral' && ['success','info','warning','danger'].includes(path.node.arguments.at(-1).value)) {
+                    customType = path.node.arguments.at(-1).value
+                 }
+                 if(customType) {
+                    path.node.arguments.pop()
+                    styleArgument = type.stringLiteral(`${themeStyle[customType]}`) 
+                    const lastIndex = code.lastIndexOf(',');
+                    arg = removeQuotes(code.slice(12, lastIndex))
+                }else {
+                    styleArgument = config.customStyle ? type.stringLiteral(`${config.customStyle}`) : type.stringLiteral(`${config.type}`)
+                    arg = removeQuotes(code.slice(12, -1))
+                }  
                 addPreTip(styleArgument, path.node.arguments)
-                const titleArgument = options.isChangeLine ? type.stringLiteral(`%c${arg}:\n`) : type.stringLiteral(`%c${arg}:`);
+                const titleArgument = config.textWrap ? type.stringLiteral(`%c${arg}\n`) : type.stringLiteral(`%c${arg}`);
                 addPreTip(titleArgument, path.node.arguments)
             }
         },
@@ -73,6 +75,10 @@ function isConsoleLogNode(node) {
 
 function addPreTip(tipLiteral, argument) {
     argument.unshift(tipLiteral)
+}
+
+function removeQuotes(str) {
+    return str.replace(/^['"]+|['"]+$/g, '');
 }
 
 module.exports = prefixLogLoader;
