@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import HelloWorld from "./components/HelloWorld.vue";
+import HelloWorld from "./components/HelloWorld.vue"
 
 export default {
   name: "App",
@@ -22,13 +22,13 @@ export default {
   data() {
     return {
       time: new Date(),
-      arr: [1,2,3],
+      arr: [1, 2, 3],
       person: {
         name: "Hello World",
         age: 16,
         others: {
           grade: 9,
-        }
+        },
       },
     }
   },
@@ -37,26 +37,25 @@ export default {
   },
   methods: {
     test1() {
-      console.log(null);
-      console.log(undefined);
-      console.log(true);
-      console.log('hello world');
-      console.log(10086);
-    }, 
+      console.log(null,'info')
+      console.log(undefined,'success')
+      console.log(true,'warning')
+      console.log("hello world",'danger')
+    },
     test2() {
-      console.log(this.time);
-      console.log(this.arr);
-      console.log(this.arr[2]);
-      console.log(this.person);
-      console.log(this.person.name);
-      console.log(this.person.others);
-      console.log(this.person.others.grade);
-    },   
+      console.log(this.time)
+      console.log(this.arr)
+      console.log(this.arr[2])
+      console.log(this.person)
+      console.log(this.person.name, 'danger')
+      console.log(this.person.others)
+      console.log(this.person.others.grade)
+    },
     async test3() {
       await getFu()
     },
   },
-};
+}
 </script>
 
 <style>

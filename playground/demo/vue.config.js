@@ -2,7 +2,7 @@
  * @Author: tuyongtao1
  * @Date: 2024-05-15 17:31:29
  * @LastEditors: tuyongtao1
- * @LastEditTime: 2024-05-20 15:11:35
+ * @LastEditTime: 2024-07-16 09:53:18
  * @Description: 
  */
 const { defineConfig } = require("@vue/cli-service");
@@ -30,10 +30,9 @@ module.exports = defineConfig({
             {
               loader: 'prefix-log-loader',
               // 没有特殊要求可不配置
-              // options: {
-              //   style: 'color: red; font-size: 20px; padding: 1px;',
-              //   isChangeLine: true, // 是否换行
-              // },
+              options: {
+                type: 'info',
+              },
               
             },
           ],
