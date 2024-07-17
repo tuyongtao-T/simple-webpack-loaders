@@ -7,7 +7,7 @@
     <button @click="test2">打印变量</button>
     <h1>2. no-catch-loader</h1>
     <h2>2.1 功能点</h2>
-    <button @click="test3">捕获methods中的方法</button>
+    <button @click="defaultTest">捕获methods中的方法</button>
   </div>
 </template>
 
@@ -51,9 +51,13 @@ export default {
       console.log(this.person.others)
       console.log(this.person.others.grade)
     },
-    async test3() {
+    async defaultTest() {
+      // getFn是一个不存在的函数
       await getFu()
     },
+    catchFn() {
+      this.$message('catchFn');
+    }
   },
 }
 </script>

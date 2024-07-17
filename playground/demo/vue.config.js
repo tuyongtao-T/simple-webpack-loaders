@@ -2,7 +2,7 @@
  * @Author: tuyongtao1
  * @Date: 2024-05-15 17:31:29
  * @LastEditors: tuyongtao1
- * @LastEditTime: 2024-07-16 09:53:18
+ * @LastEditTime: 2024-07-16 15:37:52
  * @Description: 
  */
 const { defineConfig } = require("@vue/cli-service");
@@ -22,9 +22,18 @@ module.exports = defineConfig({
               loader: "no-catch-loader",
               // 没有特殊要求可不配置
               options: {
-                catchCode: (identifier) => `console.log(${identifier})`,
+                catchCode: (identifier) => `
+                  if(this.catchFn) {
+                    this.catchFn()
+                  }else {
+                    this.$message('catch');
+                    console.log(${identifier})
+                  }
+                `,
                 identifier: "e",
-                finallyCode: 'console.log("finally")',
+                finallyCode: `
+                  console.log("finally")  
+                `,
               },
             },
             {

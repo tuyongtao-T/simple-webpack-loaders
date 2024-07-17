@@ -9,7 +9,8 @@
   },
   "dependencies": {
     "core-js": "^3.8.3",
-    "no-catch-loader": "workspace:^1.0.6",
+    "element-ui": "^2.15.14",
+    "no-catch-loader": "workspace:^1.0.7",
     "prefix-log-loader": "workspace:^1.0.3",
     "vue": "^2.6.14"
   },
